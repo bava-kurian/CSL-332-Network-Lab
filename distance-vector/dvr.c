@@ -24,8 +24,6 @@ int main(void)
          }
     }
     int count=0;
-    do
-    {
     for (int i=0;i<n;i++)
     {
         for(int j=0;j<n;j++)
@@ -41,8 +39,6 @@ int main(void)
             }
         }
     }
-
-    }while(count!=0);
 
      for(int i=0;i<n;i++)
         {
