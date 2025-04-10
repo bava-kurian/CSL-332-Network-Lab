@@ -14,15 +14,19 @@ int func(int sock_desc,int frame,int win)
 {
     int w1,w2=win,sent=0,yet=0;
 
+    if(setsockopt(sock_desc,SOL_SOCKET,SO_RCVTIMEO,(struct timeval*)&timeout,sizeof(timeout))<0)
+    {
+        printf("setsockopt(SO_RCVTIMEO) failed.\n");
+    }
+
     while(sent<frame)
     {
-        for(int i=w1;i<w2&& sent<frame;i++)
-        {
-            bzero(buff,200);
-            snprintf(buff,sizeof(buff),"%d",w1);
-            send(sock_desc,buff,sizeof(buff),0);
+        while(yet < win && w1 < frame){
+            bzero(buff, 200);
+            snprintf(buff, sizeof(buff), "%d", w1);
+            send(sock_desc, buff, sizeof(buff), 0);
             sleep(1);
-            printf("Frame %d sent.\n",sent);
+            printf("Frame %d sent.\n", w1);
             w1++;
             yet++;
         }
